@@ -61,6 +61,10 @@ public class MonsterData extends GameResource {
     private int weaponId;
     private MonsterDescribeData describeData;
 
+    public void setWeaponId(int i) {
+        this.weaponId = i;
+    }
+
     public float getFightProperty(FightProperty prop) {
         return switch (prop) {
             case FIGHT_PROP_BASE_HP -> this.baseHp;

@@ -69,6 +69,24 @@ public class GameItem {
         // Morphia only
     }
 
+    public SceneWeaponInfo createSceneWeaponInfo(int id) {
+        SceneWeaponInfo.Builder weaponInfo = SceneWeaponInfo.newBuilder()
+            .setEntityId(id)
+            .setItemId(this.getItemId())
+            .setGuid(this.getGuid())
+            .setLevel(this.getLevel())
+            .setGadgetId(this.getItemData().getGadgetId())
+            .setAbilityInfo(AbilitySyncStateInfo.newBuilder().setIsInited(getAffixes().size() > 0));
+
+        if (this.getAffixes() != null && this.getAffixes().size() > 0) {
+            for (int affix : this.getAffixes()) {
+                weaponInfo.putAffixMap(affix, this.getRefinement());
+            }
+        }
+
+        return weaponInfo.build();
+    }
+
     public GameItem(int itemId) {
         this(GameData.getItemDataMap().get(itemId));
     }

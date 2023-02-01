@@ -6,9 +6,10 @@ import emu.grasscutter.game.inventory.GameItem;
 import emu.grasscutter.net.packet.BasePacket;
 import emu.grasscutter.net.packet.PacketOpcodes;
 import emu.grasscutter.net.proto.AvatarEquipChangeNotifyOuterClass.AvatarEquipChangeNotify;
+import emu.grasscutter.net.proto.SceneWeaponInfoOuterClass;
 
 public class PacketAvatarEquipChangeNotify extends BasePacket {
-	
+
 	public PacketAvatarEquipChangeNotify(Avatar avatar, GameItem item) {
 		super(PacketOpcodes.AvatarEquipChangeNotify);
 
@@ -17,7 +18,7 @@ public class PacketAvatarEquipChangeNotify extends BasePacket {
 				.setEquipType(item.getEquipSlot())
 				.setItemId(item.getItemId())
 				.setEquipGuid(item.getGuid());
-		
+
 		if (item.getItemData().getEquipType() == EquipType.EQUIP_WEAPON) {
 			proto.setWeapon(item.createSceneWeaponInfo());
 		} else {
@@ -26,7 +27,26 @@ public class PacketAvatarEquipChangeNotify extends BasePacket {
 
 		this.setData(proto);
 	}
-	
+
+    public PacketAvatarEquipChangeNotify(Avatar avatar, GameItem item,
+                                         SceneWeaponInfoOuterClass.SceneWeaponInfo weaponInfo) {
+        super(PacketOpcodes.AvatarEquipChangeNotify);
+
+        AvatarEquipChangeNotify.Builder proto = AvatarEquipChangeNotify.newBuilder()
+            .setAvatarGuid(avatar.getGuid())
+            .setEquipType(item.getEquipSlot())
+            .setItemId(item.getItemId())
+            .setEquipGuid(item.getGuid());
+
+        if (item.getItemData().getEquipType() == EquipType.EQUIP_WEAPON) {
+            proto.setWeapon(weaponInfo);
+        } else {
+            proto.setReliquary(item.createSceneReliquaryInfo());
+        }
+
+        this.setData(proto);
+    }
+    
 	public PacketAvatarEquipChangeNotify(Avatar avatar, EquipType slot) {
 		super(PacketOpcodes.AvatarEquipChangeNotify);
 

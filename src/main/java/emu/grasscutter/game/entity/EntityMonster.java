@@ -50,6 +50,9 @@ public class EntityMonster extends GameEntity {
     @Getter @Setter private int poseId;
     @Getter @Setter private int aiId = -1;
 
+    public int getWeaponEntityId() {
+        return this.weaponEntityId;
+    }
     public EntityMonster(Scene scene, MonsterData monsterData, Position pos, int level) {
         super(scene);
         this.id = getWorld().getNextEntityId(EntityIdType.MONSTER);
