@@ -30,7 +30,7 @@ public final class Configuration extends ConfigContainer {
     private static final String PLUGINS_FOLDER = config.folderStructure.plugins;
     private static final String SCRIPTS_FOLDER = config.folderStructure.scripts;
     private static final String PACKETS_FOLDER = config.folderStructure.packets;
-
+    private static final String WINDY_FOLDER = config.folderStructure.windy;
     public static final Server SERVER = config.server;
     public static final Database DATABASE = config.databaseInfo;
     public static final Account ACCOUNT = config.account;
@@ -87,6 +87,15 @@ public final class Configuration extends ConfigContainer {
     @Deprecated(forRemoval = true)
     public static String PACKET(String path) {
         return Path.of(PACKETS_FOLDER, path).toString();
+    }
+
+    @Deprecated(forRemoval = true)
+    public static String WINDY() {
+        return WINDY_FOLDER;
+    }
+
+    public static String WINDY(String path) {
+        return Path.of(WINDY_FOLDER, path).toString();
     }
 
     /**
