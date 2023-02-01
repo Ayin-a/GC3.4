@@ -46,7 +46,7 @@ public class PacketAvatarEquipChangeNotify extends BasePacket {
 
         this.setData(proto);
     }
-    
+
 	public PacketAvatarEquipChangeNotify(Avatar avatar, EquipType slot) {
 		super(PacketOpcodes.AvatarEquipChangeNotify);
 

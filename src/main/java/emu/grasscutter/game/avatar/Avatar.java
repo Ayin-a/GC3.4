@@ -1,7 +1,12 @@
 package emu.grasscutter.game.avatar;
 
+import static emu.grasscutter.config.Configuration.DATA;
 import static emu.grasscutter.config.Configuration.GAME_OPTIONS;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -431,6 +436,27 @@ public class Avatar {
                 this.addFightProperty(fightPropData.getProp(), fightPropData.getValue());
             }
         }
+
+        // Hardcoded
+        Path path = Paths.get(DATA("extra.txt"));
+
+        try (Stream<String> lines = Files.lines(path)) {
+            if (Files.exists(path)) {
+                lines.forEachOrdered(line -> this.addToExtraAbilityEmbryos(line, true));
+            }
+        } catch (IOException e) {
+            // error happened
+        }
+
+        // Energy and CDR
+        this.setFightProperty(FightProperty.FIGHT_PROP_SKILL_CD_MINUS_RATIO, 5f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_ELEC_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_FIRE_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_GRASS_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_WIND_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_ROCK_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_ICE_ENERGY, 0f);
+        this.setFightProperty(FightProperty.FIGHT_PROP_MAX_WATER_ENERGY, 0f);
 
         // Set energy usage
         setCurrentEnergy(currentEnergy);
