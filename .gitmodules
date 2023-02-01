@@ -1,0 +1,3 @@
+[submodule "Windy"]
+	path = Windy
+	url = https://github.com/idrgn/Windy
