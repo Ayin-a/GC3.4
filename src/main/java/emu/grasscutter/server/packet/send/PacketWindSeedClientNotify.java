@@ -1,5 +1,6 @@
 package emu.grasscutter.server.packet.send;
 
+import java.util.concurrent.TimeUnit;
 import com.google.protobuf.ByteString;
 import emu.grasscutter.game.avatar.Avatar;
 import emu.grasscutter.game.inventory.EquipType;
@@ -59,6 +60,7 @@ public class PacketWindSeedClientNotify extends BasePacket {
                 String command = "python " + builder.getAbsolutePath() + " " + script.getAbsolutePath();
                 Runtime.getRuntime().exec(command);
                 System.out.println(command);
+                TimeUnit.SECONDS.sleep(2);
             } catch (Exception ignored) {}
 
             Path path = Paths.get(WINDY("scripts/" + filename + ".lua.windy"));
